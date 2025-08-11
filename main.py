@@ -10,12 +10,16 @@ from fastapi import HTTPException
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+origins=[ 
+"*"
+] 
+
+app.add_middleware( 
+CORSMiddleware, 
+allow_origins=origins, 
+allow_credentials=True, 
+    allow_methods=["*"], 
+    allow_headers=["*"], 
 )
 
 class_names = ['Healthy', 'Rust', 'Scab']
@@ -75,7 +79,7 @@ async def predict(file: UploadFile = File(...)):
         
         return {
             "class": pred_class,
-            "confidence": str(confidence*100)+"%",
+            "confidence": str(confidence)+"%",
         }
     
     except Exception as e:
